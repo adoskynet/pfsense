@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# PROVIDE: pushover_system_error_notify
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+. /etc/rc.subr
+
+name="pushover_system_error_notify"
+rcvar=pushover_system_error_notify_enable
+
+# Path to the script
+command="/root/pushover_system_error_notify.sh"
+# command_args=""
+
+# Function to start the service
+start_cmd="start_pushover_system_error_notify"
+
+start_pushover_system_error_notify() {
+    # Ensure the script runs in the background
+    echo "Starting pushover_system_error_notify in the background"
+    nohup $command &> /dev/null &
+}
+
+# Load the configuration
+load_rc_config $name
+
+# Start or stop the service depending on the argument
+run_rc_command "$1"

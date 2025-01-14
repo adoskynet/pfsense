@@ -1,5 +1,24 @@
 #!/bin/sh
 
+# This script performs the following actions on pfsense:
+
+# 1. Monitors a Log File: It continuously monitors the specified log file (/var/log/system.log by default) for lines containing a specific search string (error by default).
+# 2. Sends Notifications: When a line containing the search string is found, it sends a notification using the PushOver API. The notification includes the logline that triggered the alert.
+# 3. Outputs to Terminal: It also outputs the logline to the terminal for immediate visibility.
+
+# Key Components:
+# -Log File: The file being monitored is defined by the LOG_FILE variable.
+# -Search String: The string being searched for in the log file is defined by the SEARCH_STRING variable.
+# -PushOver Credentials: USER_KEY and API_TOKEN hold the credentials for PushOver API.
+# -Notification Function: send_notification sends the notification through PushOver.
+# -Output Function: output_to_screen outputs the logline to the terminal.
+# -Monitoring Function: monitor_log uses tail -F to monitor the log file and trigger notifications and outputs when the search string is found.
+
+# Workflow:
+# The script starts monitoring the log file in the background.
+# When a line containing the search string is found, it sends a notification and outputs the line to the terminal.
+# It checks the response from PushOver to confirm if the notification was sent successfully and logs the result.
+
 # Log file to monitor (adjust as needed)
 LOG_FILE="/var/log/system.log"  # You can change this to any service log file you want to monitor (e.g., OpenVPN, DNS)
 
